@@ -11,7 +11,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: ExpensesTracker());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ExpensesTracker(),
+    );
   }
 }
 //main -runApp-- (material)Stateless-- > scaffold(screen)
