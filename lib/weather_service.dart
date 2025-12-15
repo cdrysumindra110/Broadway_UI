@@ -5,11 +5,11 @@ import 'package:http/http.dart' as http;
 
 class WeatherService {
   final String apiKey = "0b10461d5a30e6612ce19d84c97ef651";
-
-  Future<WeatherModel> getWeather() async {
+  //city name --string
+  Future<WeatherModel> getWeather(String cityName) async {
     final response = await http.get(
       Uri.parse(
-        "https://api.openweathermap.org/data/2.5/weather?q=kathmandu&appid=$apiKey",
+        "https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey",
       ),
     );
     final jsonData = jsonDecode(response.body);
@@ -18,4 +18,3 @@ class WeatherService {
     return weatherModel;
   }
 }
-//get

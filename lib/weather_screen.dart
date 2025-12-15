@@ -13,6 +13,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
   double temp = 0.0;
   int humidity = 0;
   double speed = 0.0;
+  String cityName = '';
+  //searchController
 
   @override
   Widget build(BuildContext context) {
@@ -20,19 +22,30 @@ class _WeatherScreenState extends State<WeatherScreen> {
       appBar: AppBar(title: Text("Weather App")),
       body: Column(
         children: [
+          //TextFormField
+          //controller: searchController
           ElevatedButton(
             onPressed: () async {
-              final data = await service.getWeather();
-              // temp= data
-              print(data);
+              //String cityname =controller
+              if (cityName.isNotEmpty) {
+                final data = await service.getWeather(cityName);
+                print(data);
 
-              temp = data.temp;
-              humidity = data.humidity;
-              speed = data.speed;
-              print(temp);
+                setState(() {
+                  temp = data.main.temp;
+                  humidity = data.main.humidity;
+                  speed = data.wind.speed;
+                });
+                print(temp);
+              }
+
+              // temp= data
             },
             child: Text("Get Weather"),
           ),
+          Text("Your Temperature is $temp"),
+          Text("Your Humidity is $humidity"),
+          Text("Your Speed is $speed"),
         ],
       ),
     );
