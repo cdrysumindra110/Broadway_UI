@@ -1,5 +1,6 @@
 import 'package:broadway_example_ui/expenses_tracker.dart';
 import 'package:broadway_example_ui/views/bmi_calculator_screen.dart';
+import 'package:broadway_example_ui/weather_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,10 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ExpensesTracker(),
-    );
+    return MaterialApp(home: WeatherScreen());
   }
 }
 //main -runApp-- (material)Stateless-- > scaffold(screen)
