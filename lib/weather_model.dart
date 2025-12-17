@@ -158,8 +158,8 @@ class Sys {
   });
 
   factory Sys.fromJson(Map<String, dynamic> json) => Sys(
-    type: json["type"],
-    id: json["id"],
+    type: json["type"] ?? 0,
+    id: json["id"] ?? 0,
     country: json["country"],
     sunrise: json["sunrise"],
     sunset: json["sunset"],
