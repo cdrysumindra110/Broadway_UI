@@ -1,5 +1,5 @@
-import 'package:broadway_example_ui/weather_brain.dart';
-import 'package:broadway_example_ui/weather_service.dart';
+import 'package:broadway_example_ui/weather/weather_brain.dart';
+import 'package:broadway_example_ui/weather/weather_service.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 

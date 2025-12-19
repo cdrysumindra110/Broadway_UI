@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:broadway_example_ui/weather_model.dart';
+import 'package:broadway_example_ui/weather/weather_model.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherService {
