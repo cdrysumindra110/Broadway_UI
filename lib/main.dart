@@ -6,21 +6,6 @@ import 'package:broadway_example_ui/views/bmi_calculator_screen.dart';
 import 'package:broadway_example_ui/weather/weather_screen.dart';
 import 'package:flutter/material.dart';
 
-// String validate(int age) {
-//   if (age < 18) {
-//     return "Underage";
-//   }
-//   return "Allowed";
-// }
-
-// bool isEven(int number) {
-//   return number % 2 == 0;
-// }
-
-// double priceWithTax(double price) {
-//   return price + (price * 0.13);
-// }
-
 void main() {
   runApp(MyApp());
 }
@@ -30,7 +15,78 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: EmailField());
+    return MaterialApp(home: Counter());
+  }
+}
+
+// class LoginScreen extends StatefulWidget {
+//   const LoginScreen({super.key});
+
+//   @override
+//   State<LoginScreen> createState() => _LoginScreenState();
+// }
+
+// class _LoginScreenState extends State<LoginScreen> {
+//   final TextEditingController emailController = TextEditingController();
+//   String result = '';
+
+//   void login() {
+//     if (emailController.text.contains('@')) {
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => HomeScreen(user: emailController.text),
+//         ),
+//       );
+//       setState(() {
+//         result = '';
+//       });
+//     } else {
+//       setState(() {
+//         result = 'Invalid Email';
+//       });
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Column(
+//         children: [
+//           TextFormField(controller: emailController),
+//           ElevatedButton(
+//             onPressed: () {
+//               login();
+//             },
+//             child: Text('Login'),
+//           ),
+//           Text(result),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+  // final String user;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Text("welcome"),
+      //  Column(
+      //   children: [
+      //     // Text('Welcome $user'),
+      //     // ElevatedButton(
+      //     //   onPressed: () {
+      //     //     Navigator.pop(context);
+      //     //   },
+      //     //   child: Text("Logout"),
+      //     // ),
+      //   ],
+      // ),
+    );
   }
 }
 
@@ -55,19 +111,42 @@ class _CounterState extends State<Counter> {
                 count++;
               });
             },
-            child: Text("Increment"),
+            child: Text("Add"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomeScreen()),
+              );
+            },
+            child: Text("Next"),
           ),
         ],
       ),
     );
   }
 }
+// user: 'user'
+// class EmailField extends StatelessWidget {
+//   const EmailField({super.key});
 
-class EmailField extends StatelessWidget {
-  const EmailField({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(body: TextField(key: Key("email")));
+//   }
+// }
+// String validate(int age) {
+//   if (age < 18) {
+//     return "Underage";
+//   }
+//   return "Allowed";
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: TextField(key: Key("email")));
-  }
-}
+// bool isEven(int number) {
+//   return number % 2 == 0;
+// }
+
+// double priceWithTax(double price) {
+//   return price + (price * 0.13);
+// }
