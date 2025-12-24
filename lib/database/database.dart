@@ -1,3 +1,4 @@
+import 'package:broadway_example_ui/note/note_model.dart';
 import 'package:broadway_example_ui/todo/todo_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -20,24 +21,28 @@ class DBHelper {
   }
 
   Future _createDB(Database db, int version) async {
-    await db.execute(
-      'CREATE TABLE Todo (id INTEGER PRIMARY KEY, title TEXT, body TEXT)',
-    );
+    await db.execute(TodoModel.createTable);
+    await db.execute(NoteModel.createTable);
   }
 
-  Future<int> insertTodo(TodoModel todo) async {
-    final db = await instance.database;
-    return db.insert("Todo", todo.toJson());
-  }
+  // Future<int> insertTodo(TodoModel todo) async {
+  //   final db = await instance.database;
+  //   return db.insert("Todo", todo.toJson());
+  // }
 
-  Future<List<TodoModel>> getTodos() async {
-    final db = await instance.database;
-    List<Map<String, dynamic>> data = await db.query("Todo");
-    return data.map((e) => TodoModel.fromJson(e)).toList();
-  }
+  // Future<List<TodoModel>> getTodos() async {
+  //   final db = await instance.database;
+  //   List<Map<String, dynamic>> data = await db.query("Todo");
+  //   return data.map((e) => TodoModel.fromJson(e)).toList();
+  // }
 
-  Future<int> delete(int id) async {
-    final db = await instance.database;
-    return db.delete("Todo", where: 'id=?', whereArgs: [id]);
-  }
+  // Future<int> delete(int id) async {
+  //   final db = await instance.database;
+  //   return db.delete("Todo", where: 'id=?', whereArgs: [id]);
+  // }
+
+  // Future<int> update(TodoModel todo) async{
+  //   final db = await instance.database;
+  //   return await db.update("Todo", todo.toJson(),where : 'id=?', whereArgs: [todo.id]);
+  // }
 }

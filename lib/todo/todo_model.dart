@@ -7,4 +7,12 @@ class TodoModel {
     return TodoModel(id: json['id'], title: json['title'], body: json['body']);
   }
   Map<String, dynamic> toJson() => {"id": id, "title": title, "body": body};
+    static const tableName = 'Todo';
+    static const createTable = '''
+      CREATE TABLE $tableName(
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        title TEXT, 
+        body TEXT
+      )
+    ''';
 }

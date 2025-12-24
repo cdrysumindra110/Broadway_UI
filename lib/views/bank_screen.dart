@@ -38,7 +38,7 @@ class _BankScreenState extends State<BankScreen> {
                 myBalance = bankAccount.balance.toString();
               });
 
-              print("My balance is ${myBalance}");
+              print("My balance is $myBalance");
             },
             child: Text("Deposit"),
           ),
