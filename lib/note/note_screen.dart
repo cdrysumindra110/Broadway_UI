@@ -1,5 +1,7 @@
+import 'package:broadway_example_ui/login_screen.dart';
 import 'package:broadway_example_ui/note/note_database.dart';
 import 'package:broadway_example_ui/note/note_model.dart';
+import 'package:broadway_example_ui/shared_data.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -13,9 +15,18 @@ class NoteScreen extends StatefulWidget {
 class _NoteScreenState extends State<NoteScreen> {
   NoteDatabase database = NoteDatabase();
   List<NoteModel> notes = [];
+  String? name;
+  String? email;
+  @override
+  void initState() {
+    getData();
+    // getName();
+    super.initState();
+  }
 
   Future<void> getData() async {
     final nt = await database.getData();
+    getName();
     setState(() {
       notes = nt;
     });
@@ -62,6 +73,8 @@ class _NoteScreenState extends State<NoteScreen> {
                     id: notes?.id,
                     title: titleController.text,
                     description: descriptionController.text,
+                    name: name ?? "",
+                    email: email ?? "",
                   );
                   if (notes == null) {
                     int result = await database.insert(note);
@@ -74,15 +87,15 @@ class _NoteScreenState extends State<NoteScreen> {
                       getData();
                     }
                   }
-                  // Fluttertoast.showToast(
-                  //   msg: "Data added sucessfully",
-                  //   toastLength: Toast.LENGTH_LONG,
-                  //   gravity: ToastGravity.CENTER,
-                  //   timeInSecForIosWeb: 1,
-                  //   backgroundColor: Colors.green,
-                  //   textColor: Colors.white,
-                  //   fontSize: 16.0,
-                  // );
+                  Fluttertoast.showToast(
+                    msg: "Data added sucessfully",
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.white,
+                    fontSize: 16.0,
+                  );
 
                   // Navigator.pop(context);
                 },
@@ -96,10 +109,30 @@ class _NoteScreenState extends State<NoteScreen> {
     );
   }
 
+  void getName() async {
+    name = await SharedData.getName();
+    email = await SharedData.getEmail();
+    print("welcome $name $email");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Note screen")),
+      appBar: AppBar(
+        title: Text("Note screen"),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await SharedData.clearLogout();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+              );
+            },
+            icon: Icon(Icons.logout),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showAddEditBottomSheet(null);
@@ -110,6 +143,7 @@ class _NoteScreenState extends State<NoteScreen> {
         onRefresh: () => getData(),
         child: Column(
           children: [
+            Text("Welcome $name"),
             Expanded(
               child: notes.isEmpty
                   ? Text("No Notes to display")
@@ -131,7 +165,12 @@ class _NoteScreenState extends State<NoteScreen> {
                               icon: Icon(Icons.edit),
                             ),
                             title: Text(noteData.title),
-                            subtitle: Text(noteData.description),
+                            subtitle: Column(
+                              children: [
+                                Text(noteData.description),
+                                Text("By ${noteData.name}"),
+                              ],
+                            ),
                             trailing: IconButton(
                               onPressed: () async {
                                 final result = await database.delete(
