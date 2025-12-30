@@ -41,6 +41,7 @@ dependencies:
   path: ^1.9.1
   fluttertoast: ^9.0.0
   shared_preferences: ^2.5.4
+  flutter_animate: ^4.5.2
 
 dev_dependencies:
   flutter_test:
