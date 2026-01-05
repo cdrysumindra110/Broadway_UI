@@ -1,0 +1,14 @@
+import 'package:broadway_example_ui/users/user_model.dart';
+
+abstract class UserState {}
+
+class UserInitial extends UserState {}
+
+class UserLoading extends UserState {}
+
+class UserLoaded extends UserState {
+  final List<UserModel> user;
+  UserLoaded(this.user);
+}
+
+class UserError extends UserState {}

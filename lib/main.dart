@@ -20,10 +20,15 @@ import 'package:broadway_example_ui/provider/task_provider.dart';
 import 'package:broadway_example_ui/provider/theme_provider.dart';
 import 'package:broadway_example_ui/theme_bloc.dart';
 import 'package:broadway_example_ui/todo/todo_screen.dart';
+import 'package:broadway_example_ui/users/user_bloc.dart';
 import 'package:broadway_example_ui/users/user_screen.dart';
+import 'package:broadway_example_ui/users/user_service.dart';
 import 'package:broadway_example_ui/views/bmi_calculator_screen.dart';
+import 'package:broadway_example_ui/weather/weather_bloc.dart';
+import 'package:broadway_example_ui/weather/weather_brain.dart';
 import 'package:broadway_example_ui/weather/weather_provider.dart';
 import 'package:broadway_example_ui/weather/weather_screen.dart';
+import 'package:broadway_example_ui/weather/weather_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +42,10 @@ void main() {
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => LoginBloc()),
         BlocProvider(create: (_) => CounterBloc()),
+        BlocProvider(create: (_) => UserBloc(UserService())),
+        BlocProvider(
+          create: (_) => WeatherBloc(WeatherService(), WeatherBrain()),
+        ),
         // ChangeNotifierProvider(create: (_) => CounterProvider()),
         // ChangeNotifierProvider(create: (_) => ThemeProvider()),
         // ChangeNotifierProvider(create: (_) => TaskProvider()),
@@ -59,7 +68,7 @@ class MyApp extends StatelessWidget {
           themeMode: state,
           theme: ThemeData.light(),
           darkTheme: ThemeData.dark(),
-          home: CounterScreenBloc(),
+          home: WeatherScreen(),
         );
       },
     );
