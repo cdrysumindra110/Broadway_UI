@@ -4,6 +4,7 @@ import 'package:broadway_example_ui/weather/weather_model.dart';
 import 'package:broadway_example_ui/weather/weather_service.dart';
 import 'package:broadway_example_ui/weather/weather_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherService service;
@@ -19,13 +20,24 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       textIcon = brain.getWeatherIcon(data!.cod);
       emit(WeatherLoaded(data!));
     });
-    on<GetTextIcon>((event, emit) async {
+    on<GetCurrentWeather>((event, emit) async {
       emit(WeatherLoading());
-
-      textIcon = brain.getWeatherIcon(data!.cod);
-      // emit(WeatherLoaded(data));
-      emit(LoadTextIcon(textIcon));
-      ;
+      Position position = await service.determinePosition();
+      if (position.latitude != null) {
+        final WeatherModel data = await service.getCurrentLocationWeather(
+          position.latitude,
+          position.longitude,
+        );
+        emit(WeatherLoaded(data));
+      }
     });
+    // on<GetTextIcon>((event, emit) async {
+    //   emit(WeatherLoading());
+
+    //   textIcon = brain.getWeatherIcon(data!.cod);
+    //   // emit(WeatherLoaded(data));
+    //   emit(LoadTextIcon(textIcon));
+    //   ;
+    // });
   }
 }

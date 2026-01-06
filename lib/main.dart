@@ -5,6 +5,7 @@ import 'package:broadway_example_ui/counter%20with%20bloc/counter_screen_bloc.da
 import 'package:broadway_example_ui/counter%20with%20cubit/counter_cubit.dart';
 import 'package:broadway_example_ui/counter%20with%20cubit/counter_screen_cubit.dart';
 import 'package:broadway_example_ui/expenses_tracker.dart';
+import 'package:broadway_example_ui/for%20firebase/user_firebase_screen.dart';
 import 'package:broadway_example_ui/login%20with%20bloc/login_bloc.dart';
 import 'package:broadway_example_ui/login%20with%20bloc/login_screen_bloc.dart';
 import 'package:broadway_example_ui/login%20with%20cubit/login_cubit.dart';
@@ -29,11 +30,14 @@ import 'package:broadway_example_ui/weather/weather_brain.dart';
 import 'package:broadway_example_ui/weather/weather_provider.dart';
 import 'package:broadway_example_ui/weather/weather_screen.dart';
 import 'package:broadway_example_ui/weather/weather_service.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MultiBlocProvider(
       providers: [
@@ -68,7 +72,7 @@ class MyApp extends StatelessWidget {
           themeMode: state,
           theme: ThemeData.light(),
           darkTheme: ThemeData.dark(),
-          home: WeatherScreen(),
+          home: FirebaseUser(),
         );
       },
     );

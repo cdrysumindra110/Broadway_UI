@@ -5,6 +5,8 @@ class GetWeather extends WeatherEvent {
   GetWeather(this.cityName);
 }
 
+class GetCurrentWeather extends WeatherEvent {}
+
 class GetTextIcon extends WeatherEvent {
   GetTextIcon();
 }

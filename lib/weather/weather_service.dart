@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:broadway_example_ui/weather/weather_model.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherService {
@@ -44,5 +45,26 @@ class WeatherService {
     } catch (e) {
       throw e.toString();
     }
+  }
+
+  Future<Position> determinePosition() async {
+    bool serviceEnabled; //hamro loction is enable or not
+    LocationPermission permission; // hamile permission diyeko xa ki xaina
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    permission = await Geolocator.checkPermission();
+    if (!serviceEnabled) {
+      return Future.error("Location is not enable");
+    }
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error("Location permission is denied");
+      }
+    }
+    return await Geolocator.getCurrentPosition();
+
+    // location is on or off
+    //user le permission diyeko xa ki xaina
   }
 }
